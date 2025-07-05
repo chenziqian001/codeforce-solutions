@@ -6,6 +6,7 @@ int f(int a,int x){
 }
 
 
+
 void solve(){
     int n;
     cin>>n;
