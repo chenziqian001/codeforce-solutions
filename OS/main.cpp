@@ -132,7 +132,7 @@ void run_rr(vector<Process> processes, int time_quantum = 2) {
 }
 
 int main() {
-    // 👇你可以在这里修改进程信息
+    // 你可以在这里修改进程信息
     vector<Process> processes = {
         {1, 0, 5},
         {2, 2, 3},
