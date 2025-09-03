@@ -5,7 +5,6 @@ void solve(){
     int n;
     cin>>n;
     auto query = [&](int x, int y) {
-        
         cout << "? " << ++x << " " << ++y << '\n';
         fflush(stdout);
         cin >> x;
