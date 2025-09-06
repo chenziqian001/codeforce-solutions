@@ -81,7 +81,6 @@ void solve(){
         cin>>x>>y>>z;
         cout<<prefix[x][y][z]<<'\n';
     }
-    
 }
 int main(){
     solve();
