@@ -46,8 +46,6 @@ void solve(){
     }
     cout<<res<<'\n';
 }
-
-
 int main(){
     int t;
     cin>>t;
@@ -55,3 +53,7 @@ int main(){
     system("pause");
     return 0;
 }
+
+
+
+

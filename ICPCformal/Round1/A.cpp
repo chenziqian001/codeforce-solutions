@@ -1,101 +1,93 @@
 #include<bits/stdc++.h>
 using namespace std;
+struct submission{
+    int uid;
+    int time;
+    int pid;
+    char res;
+    bool operator < (const submission& other) const{
+        return time<other.time;
+    }
+};
+struct  score{
+    int cnt;
+    int ttt;
+    bool operator < (const score& other) const{
+        if(cnt==other.cnt){
+            return ttt>other.ttt;
+        }
+        return cnt < other.cnt;
+    }
+};
 void solve(){
     int n;
     cin>>n;
-    unordered_map<int,string> na;
-    unordered_map<string,int> naa;
-    vector<vector<int>> time1(n,vector<int>(26));
-    vector<vector<int>> time2(n,vector<int>(26));
-    vector<vector<int>> solve(n,vector<int>(26,0));
-    int pos=0;
+    int cnt=0;
+    map<string,int> sti;
+    vector<string> its;
+    vector<submission> subs; 
+
     for(int i=0;i<n;i++){
-        string a,d;
-        char b;
-        int c;
-        cin>>a>>b>>c>>d;
-        if(naa.find(a)==naa.end()){
-            na[pos++]=a;
-            naa[a]=pos-1;
+        string team,rs;
+        int time;
+        char pb;
+        cin>>team>>pb>>time>>rs;
+        if(sti.find(team)==sti.end()){
+            sti[team]=cnt++;
+            its.push_back(team);
         }
-        int id=naa[a];
-        if(solve[id][b-'A']==0){
-            if(d[0]=='A'){
-                time1[id][b-'A']+=c;
-                solve[id][b-'A']=1;
-            }
-            else if(d[0]=='R'){
-                time1[id][b-'A']+=c;
-                time2[id][b-'A']+=c;
-            }
-            else{
-                solve[id][b-'A']=3;
-                time2[id][b-'A']+=c;
-            }
-        }
+        int pb_id=pb-'A';
+        subs.push_back({
+            sti[team],
+            time,
+            pb_id,
+            rs[0]
+        });   
     }
-    set<int> ans;
-    int bc=0;
-    int bt=1e5+1;
-    for(int i=0;i<pos;i++){
-        int cnt=0;
-        int t=0;
-        for(int j=0;j<26;j++){
-            if(solve[i][j]==1){
-                cnt++;
-                t+=time1[i][j];
-            }
-        }
-        if(cnt>bc){
-            bc=cnt;
-            bt=t;
-            ans.clear();
-            ans.insert(i);
-        }
-        else if(cnt==bc){
-            if(t==bt){
-                ans.insert(i);
-            }
-            else if(t<bt){
-                bt=t;
-                ans.clear();
-                ans.insert(i);
-            }
+    vector<vector<int>> pe(cnt,vector<int>(26,0));
+    vector<vector<score>> sc(cnt,vector<score>(2));
+    for(int i=0;i<cnt;i++){
+        for(int j=0;j<2;j++){
+            sc[i][j]={0,0};
         }
     }
 
-    for(int i=0;i<pos;i++){
-        int cnt1=0,cnt2=0;
-        int t1=0,t2=0;
-        for(int j=0;j<26;j++){
-            if(solve[i][j]==1){
-                cnt1++;
-                t1+=time1[i][j];
-            }
-            else if(solve[i][j]==3){
-                cnt2++;
-                t2+=time2[i][j];
-            }
+    sort(subs.begin(),subs.end());
+    for(const auto& sub:subs){
+        int uid=sub.uid;
+        int pid=sub.pid;
+        if(pe[uid][pid]==-1) continue;
+        if(sub.res=='A'){
+            sc[uid][0].cnt++;
+            sc[uid][0].ttt+=sub.time+pe[uid][pid];
+            pe[uid][pid]=-1;
+            sc[uid][1]=sc[uid][0];
         }
-        if(cnt1==bc && cnt2){
-            ans.insert(i);
+        else if(sub.res=='R'){
+            pe[uid][pid]+=20;
         }
-        else if(cnt1<bc && cnt1+cnt2==bc){
-            if(t1+t2<=bt) ans.insert(i);
-        }
-        else if(cnt1<bc && cnt1+cnt2>bc){
-            ans.insert(i);
+        else{
+            sc[uid][1].cnt++;
+            sc[uid][1].ttt+=sub.time+pe[uid][pid];
+            pe[uid][pid]=-1; 
         }
     }
 
-
-    vector<string> res;
-    for(int x:ans){
-        res.push_back(na[x]);
+    score max_sc=sc[0][0];
+    for(int i=0;i<cnt;i++){
+        if(max_sc<sc[i][0]){
+            max_sc=sc[i][0];
+        }
     }
-    sort(res.begin(),res.end());
-    for(string name:res){
-        cout<<name<<" ";
+    vector<string> result;
+    for(int i=0;i<cnt;i++){
+        if(!(sc[i][1]<max_sc)){
+            result.push_back(its[i]);
+        }
+    }
+    sort(result.begin(),result.end());
+    for(string s:result){
+        cout<<s<<" ";
     }
     cout<<'\n';
 }
@@ -106,3 +98,23 @@ int main(){
     while(t--) solve();
     return 0;
 }
+
+
+/*3
+4
+ASYYPIbf7 D 268 Unknown
+3NhYHv8w B 13 Accepted
+ASYYPIbf7 B 173 Accepted
+dnrkAsPqrA A 107 Accepted
+6
+T1 A 10Rejected
+T1 A 241 Unknown
+T1 B 200 Accepted
+T2 A 100 Accepted
+T3 C 50Accepted
+T4 D 250 Unknown
+4
+Alpha A 100 Accepted
+Beta B 100 Accepted
+Gamma C 240 Unknown
+Delta D 299 Unknown*/
