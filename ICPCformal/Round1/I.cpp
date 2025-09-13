@@ -1,61 +1,64 @@
 #include<bits/stdc++.h>
 using namespace std;
-#define int long long
-const long long inf=1e18;
+const int N=1e5+10;
+const int inf=1e9;
+struct state{
+    int node;
+    int round;
+    int now;
 
-signed main(){
-    int n,m,V,T;
-    cin>>n>>m>>V>>T;
-    T--; 
-    vector<vector<pair<int,int>>> g(n);
-    for(int i=0;i<m;i++){
-        int u,v;
-        long long w;
-        cin>>u>>v>>w;
-        u--,v--;
-        g[u].emplace_back(v,w);
-        g[v].emplace_back(u,w);
+    bool operator<(const state& other) const{
+        if(round==other.round) return now>other.now;
+        else return round>other.round;
     }
 
-    vector<int> dis(n,inf);
-    dis[T] = 0;
-
-    priority_queue<pair<int,int>,vector<pair<int,int>>,greater<>> pq;
-    vector<bool> vis(n,false);
-    pq.emplace(0,T);
+};
+int main(){
+    int n,m,v,t;
+    cin>>n>>m>>v>>t;
+    t--;
+    vector<vector<pair<int,int>>> g(n);
+    for(int i=0;i<m;i++){
+        int u,v,w;
+        cin>>u>>v>>w;
+        u--,v--;
+        g[u].push_back({v,w});
+        g[v].push_back({u,w});
+    }
+    pair<int,int> dis[N];
+    for(int i=0;i<n;i++) dis[i]={inf,0};
+    dis[t]={1,0};
+    priority_queue<state> pq;
+    pq.push({t,1,0});
 
     while(!pq.empty()){
-        auto pa = pq.top();
-        int x = pa.second;
+        auto qq=pq.top();
         pq.pop();
-        if(vis[x]) continue;
-        vis[x] = true;
-        for(auto npa : g[x]){
-            int y = npa.first;
-            long long w = npa.second; 
-            if(dis[x] + w < dis[y]){
-                dis[y] = dis[x] + w;
-                pq.emplace(dis[y], y);
+        int u=qq.node;
+        int r=qq.round;
+        int used=qq.now;        
+        if(make_pair(r,used)>dis[u]) continue;
+        for(auto next:g[u]){
+            int nu=next.first,w=next.second;
+            int nr=r;
+            int nused=used;
+            if(used+w>v){
+                nr=nr+1;
+                nused=w;
+            }
+            else nused+=w;
+            if(make_pair(nr,nused)<dis[nu]){
+                dis[nu]={nr,nused};
+                pq.push({nu,nr,nused});
             }
         }
     }
-
     for(int i=0;i<n;i++){
-        if(dis[i] == inf){
-            cout<<-1<<" ";
-            continue;
-        }
-        if(V == 0){
-            cout<<-1<<" ";
-            continue;
-        }
-        if(dis[i] % V == 0){
-            dis[i] = dis[i] / V;
-            if(dis[i] < 1) dis[i] = 1;
-        } else {
-            dis[i] = (dis[i] / V) + 1;
-        }
-        cout<<dis[i]<<" ";
+        if(dis[i].first==inf) cout<<-1<<" ";
+        else cout<<dis[i].first<<" ";
     }
     return 0;
 }
+
+
+
