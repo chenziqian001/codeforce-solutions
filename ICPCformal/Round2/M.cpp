@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void solve(){
+    int sum;
+    cin>>sum;
+    
+
+
+
+
+    
+
+
+
+
+
+
+
+
+}
+
+
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--) solve();
+    system("pause");
+    return 0;
+}
