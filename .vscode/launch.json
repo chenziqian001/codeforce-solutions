@@ -36,8 +36,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/62685/Desktop/vc",
-      "program": "c:/Users/62685/Desktop/vc/build/Debug/outDebug",
+      "cwd": "c:/Users/62685/Desktop/vc/CCPCformal2025",
+      "program": "c:/Users/62685/Desktop/vc/CCPCformal2025/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
