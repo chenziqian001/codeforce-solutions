@@ -1,40 +1,38 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-const int MOD=998244353;
+#define int long long
+const int mod=998244353;
 void solve(){
     int n;
     cin>>n;
-    vector<long long> dp(n);
-    vector<long long> tot(n);
-    vector<int> p(n);
-    vector<int> d(n);
-    vector<vector<int>> hei(n);
-    for(int i=1;i<n;i++){
-        cin>>p[i];
-        p[i]--;
-        d[i]=d[p[i]]+1;
-        hei[d[i]].push_back(i);
+    vector<int> pa(n+1);
+    vector<vector<int>> t(n+1);
+    vector<int> dp(n+1); 
+    vector<int> tt(n+1);
+    vector<int> d(n+1);
+    t[0].push_back(1);
+    for(int i=2;i<=n;i++){
+        cin>>pa[i];
+        d[i]=d[pa[i]]+1;
+        t[d[i]].push_back(i);
     }
-    dp[0]=tot[0]=1LL;
+    dp[1]=tt[0]=1;
     for(int i=1;i<n;i++){
-        for(int num:hei[i]){
-            if(d[num]==1) dp[num]=tot[d[num]-1];
-            else dp[num]=(tot[d[num]-1]-dp[p[num]]+MOD)%MOD;
-            tot[d[num]]=(tot[d[num]]+dp[num])%MOD;
+        for(int nx:t[i]){
+            dp[nx]=(tt[d[nx]-1]-(d[nx]==1 ? 0:dp[pa[nx]])+mod)%mod;
+            tt[d[nx]]=(tt[d[nx]]+dp[nx])%mod;
         }
     }
-    long long res=0;
-    for(int i=0;i<n;i++){
-        res=(res+dp[i])%MOD;
-    }
-    cout<<res<<'\n';
 
-    
-    
+
+    long long ans=0;
+    for(int i=1;i<=n;i++){
+        ans=(ans+dp[i])%mod;
+    }
+    cout<<ans<<'\n';
 }
 
-int main(){
+signed main(){
     int t;
     cin>>t;
     while(t--) solve();
