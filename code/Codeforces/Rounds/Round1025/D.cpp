@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int inf=1e9+1;
+#define int long long
+const int inf=1e18+1;
 
 void solve(){
     int n,m,l;
@@ -58,10 +59,12 @@ void solve(){
     cout<<res<<'\n';
 }
 
-int main(){
+signed main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
     int t;
     cin>>t;
     while(t--) solve();
-    system("pause");
+    
     return 0;
 }
