@@ -85,6 +85,5 @@ signed main(){
     for(auto [x,y,z]:ans){
         cout<<x+1<<" "<<y+1<<" "<<z+1<<'\n';
     }
-    
     return 0;
 }
