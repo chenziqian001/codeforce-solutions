@@ -8,12 +8,14 @@ vector<int>  Z(string &s){
     for(int i=1,l=0,r=0;i<n;i++){
         if(i<=r) z[i]=min(z[i-l],r-i+1);
         while(i+z[i]<n && s[z[i]]==s[z[i]+i]){
+            l=i; //这段和被注释的都可以正确求解答案
+            r=i+z[i];
             z[i]++;
         }
-        if(i+z[i]-1>r){
-            l=i;
-            r=i+z[i]-1;
-        }
+        //if(i+z[i]-1>r){
+        //    l=i;
+        //   r=i+z[i]-1;
+        //}
     }
     return z;
 } 
@@ -29,9 +31,6 @@ int f(vector<int> &z,int len){
     }
     return cnt;
 }
-
-
-
 
 void solve(){
     int l,r;
