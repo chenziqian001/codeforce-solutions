@@ -133,6 +133,10 @@ signed main(){
     for(int i=1;i<=n;i++){
         cin>>h[i];
         pre[i]=pre[i-1]+h[i];
+        if(h[i]>m){
+            cout<<-1<<'\n';
+            return 0;
+        }
     }
     
     stack<int> st;
@@ -148,10 +152,9 @@ signed main(){
     t.build(1,1,n);
 
     for(int i=1;i<=n;i++){
-        t.change(1,i);//先把前一次的结果更新进线段树
+        t.change(1,i);
         
-        if(next[i]<i) t.upd(1,next[i]+1,i,h[i]);//从next+1--i的max（h）都是h[i]
-
+        if(next[i]<i) t.upd(1,next[i]+1,i,h[i]);
         int l=1,r=n;
         int res=l;
         while(l<=r){
@@ -163,7 +166,7 @@ signed main(){
                 res=mid;
                 r=mid-1;
             }
-        }//二分合法区间，因为我们要保证搜索最小值的区间的h的总和不超过m
+        }
 
 
         if(res<=i) f[i]=t.query(1,res,i);
@@ -171,4 +174,4 @@ signed main(){
 
     cout<<f[n]<<'\n';
     //system("pause");
-}
+}// 和p1295完全一致

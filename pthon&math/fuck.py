@@ -43,3 +43,15 @@ if __name__ == "__main__":
 
     print("英文文本信息熵 H(X) =", H_eng)
     print("中文文本信息熵 H(X) =", H_chi)
+
+
+
+with open("simple_struct.dat","wb") as f:
+    f.write(sn)
+    f.wrte(s.encode)
+    
+
+
+
+
+
