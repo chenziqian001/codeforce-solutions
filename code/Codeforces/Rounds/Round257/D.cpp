@@ -1,7 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
-const int mod=998244353;
+const int mod=1e9+7;
 const int N=5010;
 int fac[N];int ifac[N];
 
@@ -33,42 +33,34 @@ void get_stirling(){
     }
 }//斯特林数递推式S[i][j]=S[i-1][j-1]+j*S[i-1][j]
 
-
-vector<vector<int>> mul(vector<vector<int>> a,vector<vector<int>> b){
-    int ra=a.size();
-    int ca=a[0].size();
-    int cb=b[0].size();
-    vector<vector<int>> res(ra,vector<int>(cb));
-    for(int i=0;i<ra;i++){
-        for(int j=0;j<ca;j++){
-            if(a[i][j]==0) continue;
-            for(int k=0;k<cb;k++){
-                res[i][k]=(res[i][k]+a[i][j]*b[j][k]%mod+mod)%mod;
-            }
-        }
-    }
-    return res;
-}
-
-vector<vector<int>> qp(vector<vector<int>> m,vector<vector<int>> f0,int n){
-    vector<vector<int>> res=f0;
-    while(n){
-        if(n&1) res=mul(m,f0);
-        m=mul(m,m);
-        n>>=1;
-    }
-    return res;
-}
-
-void solve(){
-   
-}
 signed main(){
     ios::sync_with_stdio(false);
     cin.tie(0);
-    init();
-    int t;
-    cin>>t;
-    while(t--) solve();
-    return 0;
+    int n;
+    cin>>n;
+
+    vector<int> super(1<<20);
+
+    for(int i=0;i<n;i++){
+        int x;
+        cin>>x;
+        super[x]++;
+    }
+
+    for(int i=0;i<20;i++){
+        for(int j=0;j<(1<<20);j++){
+            if(((j>>i)&1)==0){
+                super[j]=(super[j]+super[j|(1<<i)])%mod;
+            }
+        }
+    }
+
+    int res=0;
+    for(int x=0;x<(1<<20);x++){
+        res=(res+(__builtin_popcount(x)%2==0?1:-1)*qp(2,(super[x]))+mod)%mod;
+    }
+
+
+    cout<<res<<'\n';
+    //system("pause");
 }
