@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "Codeforces 刷题交集",
+  "version": "1.0",
+  "description": "在 Codeforces 个人主页显示你和好友的刷题交集。",
+  "content_scripts": [
+    {
+      "matches": ["https://codeforces.com/profile/*"],
+      "js": ["contentScript.js"]
+    }
+  ],
+  "host_permissions": [
+    "https://codeforces.com/api/user.status*"
+  ]
+}
