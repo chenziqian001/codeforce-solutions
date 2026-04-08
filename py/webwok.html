@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="000000chenziqian">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>标记互换</title>
+    <style>
+        div{
+            /*background-color: #f5f6f6;*/
+            color: #000000;
+            height: 2em;
+            background-color: rgb(200,200,200);
+            margin: 2px;
+        }
+        .inline_disp{
+            display: inline;
+        }
+        .block_disp{
+            display: block;
+            margin: 2px;
+            height: 4em;
+            background-color: rgb(200,200,200);
+        }
+    </style>
+</head>
+<body>
+    <div id="d1">
+        这是div1
+    </div>
+    <div id="d2">
+        这是div2
+    </div>
+    <span id="s1">
+        这是span1
+    </span>
+    <span id="s2">
+        这是span2
+    </span>
+    <div class="inline_disp">
+        这是div3
+    </div>
+    <div class="inline_disp">这是div4</div>
+    <span id="s3" class="block_disp">
+        这是span3
+    </span>
+    <span class="block_disp">
+        这是span4在使用css排版过程中，div标记项与span标记是两个常用的标记，加上css对其样式的控制，可以很方便地实现各种效果。
+    </span>
+</body>
+</html>
