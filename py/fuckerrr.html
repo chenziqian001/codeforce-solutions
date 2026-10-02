@@ -1,57 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="author" content="000000陈子谦">
-    <title>行间距和首行缩进</title>
-    <style>
-        .p1 {
-            letter-spacing: 1px;
-            line-height: 1em;
-            text-indent: 2em;
-        }
-        .p2 {
-            letter-spacing: 4px;
-            line-height: 1.5em;
-            text-indent: 3em;
-        }
-        .p3 {
-            letter-spacing: 6px;
-            line-height: 2em;
-            text-indent: 4em;
-        }
-        .p4 {
-            text-decoration: underline;
-            text-transform: capitalize;
-        }
-        .p5 {
-            text-decoration: line-through;
-            text-transform: lowercase;
-        }
-        .p6 {
-            text-decoration: overline;
-            text-transform: uppercase;
-        }
-    </style>
-</head>
-<body>
-    <h3>设置字符间距、行高及首行缩进</h3>
-    <hr>
-    <p class="p1">[字符间距letter-spacing:2px, 行高line-height:1em, 首行缩进text-indent:2em] 昨天</p>
-    <p class="p2">[字符间距4px, 行高1.5em, 首行缩进3em] 昨天上午，南京国际博览中心金陵会议中心内欢歌笑</p>
-    <p class="p3">[字符间距6px, 行高2em, 首行缩进4em] 昨天上午，南京国际博览中心金陵会议中心内欢</p>
-    <p class="p4">文字下划线、首字母大写capitalize,
-        Chinese leader Xi Jinping has urged the Communist
-        Part of China(CPC) to be more tolerant of criticism and receptive to the
-        views of non-communists.</p>
-    <p class="p5">文字删除线、字母小写lowercase,
-        Chinese leader Xi Jinping has urged the Communist
-        Part of China(CPC) to be more tolerant of criticism and receptive to the
-        views of non-communists.</p>
-    <p class="p6">文字上划线、字母大写uppercase,
-        Chinese leader Xi Jinping has urged the Communist
-        Part of China(CPC) to be more tolerant of criticism and receptive to the
-        views of non-communists.</p>
-</body>
+<html lang="zh-CN">
+   
+    <head>
+        <meta charset="utf-8">
+        <title>修改</title>
+    </head>
+    <body>
+        <p id="txt">改变我的样式</p>
+        <button id="change">改变</button>
+        <script>
+            let btn=document.getElementById("change");
+            function change(){
+                let text=document.getElementById("txt");
+                text.style.color="red";
+                text.style.fontSize="30px";
+            }
+            btn.onclick=change;
+        </script>
+    </body>
+
 </html>
